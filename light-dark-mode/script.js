@@ -13,43 +13,55 @@ function imageMode(color) {
     image3.src = `img/undraw_conceptual_idea_${color}.svg`;
 }
 
-// Dark Mode styles
-function darkMode() {
-    nav.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-    textBox.style.backgroundColor = 'rgb(255 255 255 / 50%)';
-    toggleIcon.children[0].textContent = 'Dark Mode';
+function toggleDarkLightMode(isDark) {
+    nav.style.backgroundColor = isDark ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
+    textBox.style.backgroundColor = isDark ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
+    toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode';
 
-    // toggleIcon.children[1].classList.remove('fa-sun');
-    // toggleIcon.children[1].classList.add('fa-moon');
-    toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon');
+    isDark ? toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon') :
+        toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
 
-    imageMode('dark');
+    isDark ? imageMode('dark') : imageMode('light');
 }
 
-// Light Mode styles
-function lightMode() {
-    nav.style.backgroundColor = 'rgb(255 255 255 / 50%)';
-    textBox.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-    toggleIcon.children[0].textContent = 'Light Mode';
-
-    // toggleIcon.children[1].classList.remove('fa-moon');
-    // toggleIcon.children[1].classList.add('fa-sun');
-    toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
-
-    imageMode('light');
-}
+// // Dark Mode styles
+// function darkMode() {
+//     nav.style.backgroundColor = 'rgb(0 0 0 / 50%)';
+//     textBox.style.backgroundColor = 'rgb(255 255 255 / 50%)';
+//     toggleIcon.children[0].textContent = 'Dark Mode';
+//
+//     // toggleIcon.children[1].classList.remove('fa-sun');
+//     // toggleIcon.children[1].classList.add('fa-moon');
+//     toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon');
+//
+//     imageMode('dark');
+// }
+//
+// // Light Mode styles
+// function lightMode() {
+//     nav.style.backgroundColor = 'rgb(255 255 255 / 50%)';
+//     textBox.style.backgroundColor = 'rgb(0 0 0 / 50%)';
+//     toggleIcon.children[0].textContent = 'Light Mode';
+//
+//     // toggleIcon.children[1].classList.remove('fa-moon');
+//     // toggleIcon.children[1].classList.add('fa-sun');
+//     toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
+//
+//     imageMode('light');
+// }
 
 // Switch theme dynamically
 function switchTheme(event) {
-    console.log(event);
     if (event.target.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark'); // key and value must be strings
-        darkMode();
+        // darkMode();
+        toggleDarkLightMode(true);
     } else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light'); // key and value must be strings
-        lightMode();
+        // lightMode();
+        toggleDarkLightMode(false);
     }
 }
 
@@ -63,6 +75,7 @@ if (currentTheme) {
 
     if (currentTheme === 'dark') {
         toggleSwitch.checked = true;
-        darkMode();
+        // darkMode();
+        toggleDarkLightMode(true);
     }
 }
